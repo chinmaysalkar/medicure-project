@@ -1,6 +1,6 @@
 resource "aws_instance" "k8s-pro" {
   ami                    = "ami-0f5ee92e2d63afc18"
-  instance_type          = "t2.micro"
+  instance_type          = "t2.medium"
   key_name               = "myprojetct01"
   vpc_security_group_ids = ["sg-00de37b3b55eb6077"]
   tags = {
