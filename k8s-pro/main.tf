@@ -1,10 +1,10 @@
-resource "aws_instance" "medicure-pro" {
+resource "aws_instance" "k8s-pro" {
   ami                    = "ami-0f5ee92e2d63afc18"
   instance_type          = "t2.micro"
-  key_name               = "keypairpem"
+  key_name               = "myprojetct01"
   vpc_security_group_ids = ["sg-0a5b8d6ca31ae2d81"]
   tags = {
-    Name = "medicure-pro"
+    Name = "k8s-pro"
   }
   
   provisioner "local-exec" {
@@ -14,16 +14,16 @@ resource "aws_instance" "medicure-pro" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("./keypairpem.pem")
+    private_key = file("./myprojetct01.pem")
     host        = self.public_ip 
   }
    
   provisioner "local-exec" {
-    command = "echo ${aws_instance.medicure-pro.public_ip} > inventory"
+    command = "echo ${aws_instance.k8s-pro.public_ip} > inventory"
   }
 
   provisioner "local-exec" {
-    command = "ansible-playbook /var/lib/jenkins/workspace/medicure-peoject/medicure-pro/ansible-playbook.yml"
+    command = "ansible-playbook /var/lib/jenkins/workspace/medicure-project/k8s-pro/k8s-pro/deploy.yml"
   }
 }
 
